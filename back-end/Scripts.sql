@@ -1,4 +1,5 @@
-﻿CREATE TABLE Role (
+﻿Create database WebCoffee
+CREATE TABLE Role (
     RoleValue VARCHAR(50) PRIMARY KEY,
     RoleDescription TEXT
 );
@@ -80,8 +81,7 @@ VALUES
 ('Jake White', 'jakewhite', 'password123', 'User', 0, GETDATE()),
 ('Olivia Green', 'oliviagreen', 'password123', 'Staff', 0, GETDATE());
 
-INSERT INTO Product (ProductName, ProductDescription, ProductPrice, Quantity, Image, IsDeleted, CreateAt)
-VALUES 
+
 INSERT INTO Product (ProductName, ProductDescription, ProductPrice, Quantity, Image, IsDeleted, CreateAt)
 VALUES 
 ('Espresso', 'Strong and bold coffee shot', 2.50, 100, 'https://tse1.mm.bing.net/th?id=OIP.-fN7-Y36OOQxV-zlueT-pgHaGQ&pid=Api&P=0&h=220', 0, GETDATE()),
@@ -93,7 +93,7 @@ VALUES
 ('Flat White', 'Richer than a latte, with less foam', 3.50, 85, 'https://tse3.mm.bing.net/th?id=OIP.5srfApOdXgC2MedT1B3LfQHaFj&pid=Api&P=0&h=220', 0, GETDATE()),
 ('Iced Coffee', 'Chilled coffee served over ice', 2.95, 120, 'https://tse1.mm.bing.net/th?id=OIP.VEBt4QuDdoosNgreLblL-QHaHa&pid=Api&P=0&h=220', 0, GETDATE()),
 ('Cold Brew', 'Smooth, cold brewed coffee', 3.20, 100, 'https://tse1.mm.bing.net/th?id=OIP.sYiAg-6HlI2yJp7YVgq7zwAAAA&pid=Api&P=0&h=220', 0, GETDATE()),
-('Affogato', 'Espresso poured over vanilla ice cream', 4.00, 50, 'https://tse3.mm.bing.net/th?id=OIP.HvW7uw_BINbkmTdSGCQqDwHaE8&pid=Api&P=0&h=220', 0, GETDATE());
+('Affogato', 'Espresso poured over vanilla ice cream', 4.00, 50, 'https://tse3.mm.bing.net/th?id=OIP.HvW7uw_BINbkmTdSGCQqDwHaE8&pid=Api&P=0&h=220', 0, GETDATE()),
 
 ('Caramel Macchiato', 'Espresso with caramel syrup and milk', 3.75, 75, 'https://tse2.mm.bing.net/th?id=OIP.wn2kE9XxU_xtzz_X3mEHhQHaJQ&pid=Api&P=0&h=220', 0, GETDATE()),
 ('Mocha Latte', 'Latte with mocha syrup', 3.80, 85, 'https://tse4.mm.bing.net/th?id=OIP.YYiUGKCssH6VMS5m5IDb0wHaLH&pid=Api&P=0&h=220', 0, GETDATE()),
