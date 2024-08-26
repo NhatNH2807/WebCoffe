@@ -21,6 +21,7 @@ namespace WebCoffe.Models
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductCart> ProductCarts { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<Token> Tokens { get; set; } = null!;
         public virtual DbSet<Transaction> Transactions { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
@@ -50,7 +51,7 @@ namespace WebCoffe.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Carts)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Cart__UserId__3F466844");
+                    .HasConstraintName("FK__Cart__UserId__4222D4EF");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -64,7 +65,7 @@ namespace WebCoffe.Models
                 entity.HasOne(d => d.Cart)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CartId)
-                    .HasConstraintName("FK__Orders__CartId__49C3F6B7");
+                    .HasConstraintName("FK__Orders__CartId__4CA06362");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -95,18 +96,18 @@ namespace WebCoffe.Models
                 entity.HasOne(d => d.Cart)
                     .WithMany(p => p.ProductCarts)
                     .HasForeignKey(d => d.CartId)
-                    .HasConstraintName("FK__Product_C__CartI__46E78A0C");
+                    .HasConstraintName("FK__Product_C__CartI__49C3F6B7");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductCarts)
                     .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Product_C__Produ__45F365D3");
+                    .HasConstraintName("FK__Product_C__Produ__48CFD27E");
             });
 
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.HasKey(e => e.RoleValue)
-                    .HasName("PK__Role__1A575A3EC7FD1297");
+                    .HasName("PK__Role__1A575A3EE849D9D5");
 
                 entity.ToTable("Role");
 
@@ -115,6 +116,26 @@ namespace WebCoffe.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.RoleDescription).HasColumnType("text");
+            });
+
+            modelBuilder.Entity<Token>(entity =>
+            {
+                entity.ToTable("Token");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.ExpiredTime).HasColumnType("datetime");
+
+                entity.Property(e => e.TokenValue).HasMaxLength(500);
+
+                entity.Property(e => e.Type)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Tokens)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK__Token__UserId__3E52440B");
             });
 
             modelBuilder.Entity<Transaction>(entity =>
@@ -136,12 +157,12 @@ namespace WebCoffe.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Transactions)
                     .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__Transacti__UserI__4D94879B");
+                    .HasConstraintName("FK__Transacti__UserI__5070F446");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Username, "UQ__Users__536C85E4CD516D9E")
+                entity.HasIndex(e => e.Username, "UQ__Users__536C85E454E683A5")
                     .IsUnique();
 
                 entity.Property(e => e.CreateAt)
