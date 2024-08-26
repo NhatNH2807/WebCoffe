@@ -14,8 +14,20 @@ CREATE TABLE Users (
     Password VARCHAR(255),
     RoleValue VARCHAR(50),  -- Thêm cột RoleValue để liên kết với bảng Role
     IsLocked BIT,
+    IsActive BIT,
     CreateAt DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (RoleValue) REFERENCES Role(RoleValue)  -- Thiết lập khóa ngoại liên kết tới bảng Role
+);
+
+CREATE TABLE Token (
+    Id INT PRIMARY KEY IDENTITY(1, 1),
+    TokenValue NVARCHAR(500),
+    IsUsed BIT,
+    ExpiredTime DATETIME,
+    Type VARCHAR(50),
+    CreatedAt DATETIME,
+    UserId INT,
+    FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
 
 CREATE TABLE Cart (

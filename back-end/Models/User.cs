@@ -8,6 +8,7 @@ namespace WebCoffe.Models
         public User()
         {
             Carts = new HashSet<Cart>();
+            Tokens = new HashSet<Token>();
             Transactions = new HashSet<Transaction>();
         }
 
@@ -17,10 +18,12 @@ namespace WebCoffe.Models
         public string? Password { get; set; }
         public string? RoleValue { get; set; }
         public bool? IsLocked { get; set; }
+        public bool? IsActive { get; set; }
         public DateTime? CreateAt { get; set; }
 
         public virtual Role? RoleValueNavigation { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Token> Tokens { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebCoffe.Dto;
 using WebCoffe.Dto.Request;
 using WebCoffe.Dto.Response;
 using WebCoffe.Models;
+using WebCoffe.Services;
 
 namespace WebCoffe.Controllers;
 
@@ -12,11 +13,13 @@ public class ProductController : ControllerBase
 {
     private readonly WebCoffeeNhatContext _context;
     private readonly ILogger<ProductController> _logger;
+    private readonly JwtService _jwtService;
 
-    public ProductController(WebCoffeeNhatContext context, ILogger<ProductController> logger)
+    public ProductController(WebCoffeeNhatContext context, ILogger<ProductController> logger, JwtService jwtService)
     {
         _context = context;
         _logger = logger;
+        _jwtService = jwtService;
     }
 
     [HttpGet("GetTotalPage")]
@@ -26,7 +29,7 @@ public class ProductController : ControllerBase
         {
             int totalProducts = _context.Products
                 .Where(product =>
-                    (request.SearchString.IsNullOrEmpty()
+                    (String.IsNullOrEmpty(request.SearchString)
                         ? true
                         : product.ProductName.ToLower().Contains(request.SearchString.ToLower())) &&
                     (request.MinPrice != null ? product.ProductPrice >= request.MinPrice : true)
@@ -54,6 +57,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("GetAll")]
+    [Authorize(Roles = "USER")]
     public IActionResult GetAllProducts([FromBody] GetAllProductRequest request)
     {
         try
@@ -65,7 +69,7 @@ public class ProductController : ControllerBase
                 message = "Success",
                 data = _context.Products
                     .Where(product =>
-                        (request.SearchString.IsNullOrEmpty()
+                        (String.IsNullOrEmpty(request.SearchString)
                             ? true
                             : product.ProductName.ToLower().Contains(request.SearchString.ToLower())) &&
                         (request.MinPrice != null ? product.ProductPrice >= request.MinPrice : true)
